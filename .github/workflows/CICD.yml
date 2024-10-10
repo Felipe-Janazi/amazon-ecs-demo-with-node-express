@@ -48,7 +48,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Run SonarQube Scan
-      uses: sonarsource/sonarcloud-action@v1
+      uses: SonarSource/sonarcloud-github-action@v1.4.0
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
