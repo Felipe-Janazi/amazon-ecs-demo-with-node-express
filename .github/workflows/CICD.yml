@@ -84,18 +84,41 @@ jobs:
 
 
   deploy:
-     runs-on: ubuntu-latest
-     needs: dockerize
-     steps:
-       - name: Deploy to ECS
-         env:
-           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-           AWS_REGION: ${{ secrets.AWS_REGION }}
-           ECS_CLUSTER: ${{ secrets.ECS_CLUSTER }}
-           ECS_SERVICE: ${{ secrets.ECS_SERVICE }}
-         run: |
-           aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment
+    runs-on: ubuntu-latest
+    needs: dockerize
+    steps:
+      - name: Set up SSH key
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > private_key
+          chmod 600 private_key
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          port: ${{ secrets.EC2_PORT }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Instala o Docker se não estiver instalado
+            if ! command -v docker &> /dev/null
+            then
+              echo "Docker não encontrado. Instalando..."
+              sudo apt-get update
+              sudo apt-get install -y docker.io
+              sudo systemctl start docker
+              sudo systemctl enable docker
+            fi
+
+            # Puxa a imagem do Docker Hub
+            docker pull janazi1/sonar:v1
+
+            # Para e remove qualquer container em execução da imagem antiga
+            docker stop my_container || true
+            docker rm my_container || true
+
+            # Inicia um novo container
+            docker run -d --name my_container -p 8080:80 janazi1/sonar:v1
 
 
 
