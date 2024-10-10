@@ -105,9 +105,6 @@ jobs:
           # Inicia um novo container
           docker run -d --name my_container -p 8080:80 janazi1/sonar:v1
 
-        timeout: 30
-        debug: true
-
 
 
 
