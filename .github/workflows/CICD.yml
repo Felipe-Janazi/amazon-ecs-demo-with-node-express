@@ -35,4 +35,6 @@ jobs:
      - name: Check out code
        uses: actions/checkout@v2
      - name: Build application
-       run: npm run build
+       run: |
+        cd sample-nodejs-app
+        npm run build
