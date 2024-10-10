@@ -46,17 +46,14 @@ jobs:
    steps:
     - name: Check out code
       uses: SonarSource/sonarcloud-github-action@v3.1.0
-      env: 
-       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-       run: |
-          sonar-scanner \
-            -Dsonar.projectKey=your_project_key \
-            -Dsonar.organization=your_organization_key \
-            -Dsonar.sources=. \
-            -Dsonar.host.url=
-              https://sonarcloud.io
-              \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      with:
+          args: >
+            -Dsonar.projectKey=Vmoralles_first-pipeline
+            -Dsonar.organization=vmoralles
+            -Dsonar.sources=.
+            -Dsonar.host.url=https://sonarcloud.io
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 
 
