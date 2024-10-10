@@ -103,7 +103,7 @@ jobs:
           docker rm my_container || true
 
           # Inicia um novo container
-          docker run -d --name my_container -p 8080:80 janazi1/sonar:v1
+          docker run -d --name my_container -p 8080:3000 janazi1/sonar:v1
 
 
 
