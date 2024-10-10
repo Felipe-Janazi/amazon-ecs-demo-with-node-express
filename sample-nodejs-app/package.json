@@ -4,6 +4,7 @@
   "description": "Demo web app running on Amazon ECS pulling images from ECR",
   "main": "calculator.js",
   "scripts": {
+    "build": "echo 'No build step required'",
     "start": "node calculator.js"
   },
   "author": "buraku",
