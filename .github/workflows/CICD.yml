@@ -51,7 +51,7 @@ jobs:
       with:
           args: >
             -Dsonar.projectKey=Felipe-Janazi_amazon-ecs-demo-with-node-express
-            -Dsonar.organization=Felipe-Janazi
+            -Dsonar.organization=felipe-janazi
             -Dsonar.sources=.
             -Dsonar.host.url=https://sonarcloud.io
       env:
