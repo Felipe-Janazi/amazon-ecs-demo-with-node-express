@@ -44,26 +44,22 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Install and Run Sonar Scanner
+      run: |
+        sudo apt-get update
+        sudo apt-get install --no-install-recommends -y openjdk-11-jre
+        curl -sSLo sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
+        unzip sonar-scanner-cli.zip
+        export PATH="$PATH:$(pwd)/sonar-scanner-4.6.2.2472-linux/bin"
         
-      - name: Install Sonar Scanner
-        run: |
-         sudo apt-get update
-         sudo apt-get install --no-install-recommends -y openjdk-11-jre
-         curl -sSLo sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
-         unzip sonar-scanner-cli.zip
-         export PATH="$PATH:$(pwd)/sonar-scanner-4.6.2.2472-linux/bin"
-         
-      - name: Run SonarQube Scan
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          sonar-scanner \
-            -Dsonar.projectKey= amazon-ecs-demo-with-node-express \
-            -Dsonar.organization= Felipe-Janazi \
-            -Dsonar.sources=. \
-            -Dsonar.host.url=
-              https://sonarcloud.io
-              \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        # Executar o Sonar Scanner
+        sonar-scanner \
+          -Dsonar.projectKey=amazon-ecs-demo-with-node-express \
+          -Dsonar.organization=Felipe-Janazi \
+          -Dsonar.sources=. \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
