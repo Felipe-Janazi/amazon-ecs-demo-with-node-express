@@ -38,3 +38,23 @@ jobs:
        run: |
         cd sample-nodejs-app
         npm run build
+
+        
+  sonar_scan:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Run SonarQube Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey= amazon-ecs-demo-with-node-express \
+            -Dsonar.organization= Felipe-Janazi \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=
+              https://sonarcloud.io
+              \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
