@@ -1,7 +1,7 @@
 FROM node:14
-WORKDIR /usr/src/appe
-COPY package*.json ./
+WORKDIR /home/ubuntu
+RUN git clone https://github.com/Felipe-Janazi/amazon-ecs-demo-with-node-express.git .
+WORKDIR /home/ubuntu/amazon-ecs-demo-with-node-express/sample-nodejs-app
 RUN npm install
-COPY . .
-EXPOSE 3000
-CMD ["node", "app.js"]
+CMD ["npm", "start"]
+EXPOSE 8080
