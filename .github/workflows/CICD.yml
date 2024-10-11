@@ -95,7 +95,7 @@ jobs:
          key: ${{ secrets.EC2_SSH_KEY }}
          script: |
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/sonar:v1
-            sudo docker run -d -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/sonar:v1
+            sudo docker run -d -p 8080:8080 --name ContainerDevOps ${{ secrets.DOCKER_USERNAME }}/sonar:v1 sleep 1d
 
 
 
