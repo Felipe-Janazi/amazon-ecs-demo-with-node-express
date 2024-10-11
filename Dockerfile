@@ -1,6 +1,6 @@
 FROM node:14
 WORKDIR /home/ubuntu
-COPY package.json ./
+COPY sample-nodejs-app/package.json ./
 RUN npm install
 COPY . .
 CMD ["npm", "start"]
