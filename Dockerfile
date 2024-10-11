@@ -1,8 +1,8 @@
 FROM node:14
 WORKDIR /home/ubuntu
 RUN git clone https://github.com/Felipe-Janazi/amazon-ecs-demo-with-node-express.git .
-RUN git clone https://github.com/Felipe-Janazi/json.git .
 WORKDIR /home/ubuntu/amazon-ecs-demo-with-node-express/sample-nodejs-app
+RUN git clone https://github.com/Felipe-Janazi/json.git . 
 RUN npm install
 CMD ["npm", "start"]
 EXPOSE 8080
