@@ -1,6 +1,6 @@
 FROM node:14
 WORKDIR /home/ubuntu
-RUN git clone https://github.com/Felipe-Janazi/amazon-ecs-demo-with-node-express.git .
+COPY . .
 WORKDIR /home/ubuntu/amazon-ecs-demo-with-node-express/sample-nodejs-app
 RUN npm install
 CMD ["npm", "start"]
